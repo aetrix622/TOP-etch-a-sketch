@@ -45,6 +45,21 @@ ul {
 
 }
 
+#header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    gap: 5px;
+}
+
+button {
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
 #footer {
     background-color: darkgray;
     flex: 0;
@@ -71,6 +86,3 @@ ul {
     flex: 1;
 }
 
-.colored {
-    background-color: black;
-}
