@@ -1,4 +1,6 @@
 const btnNewGrid = document.querySelector("#btnNewGrid");
+const chkColorMode = document.querySelector("#chkColors");
+const chkProgMode = document.querySelector("#chkProgressive");
 
 window.addEventListener("DOMContentLoaded", (e) => {
     generateGrid(16,16);
@@ -43,6 +45,58 @@ function generateGrid(x, y) {
 }
 
 function colorCell(element) {
-    element.classList.add("colored");
+    const initialStyle = element.style.getPropertyValue("background-color");
+    let r, g, b, a;
+    if (initialStyle == "") {
+        // no style is set. choose a color.
+        if (chkColorMode.checked) {
+            r = random(255);
+            g = random(255);
+            b = random(255);
+        } else {
+            r = 0;
+            g = 0;
+            b = 0;
+        }
+        // Progressive alpha starts at a=0.1 if set. Otherwise a=1.
+        if (chkProgMode.checked) {
+            a = 0.1;
+        } else a = 1;
+    } else {
+        // style is already set. Keep old rgb values.
+        // add 0.1 to alpha if progressive alpha on and less than 1.
+        let oldRGBA = getRgbaCode(initialStyle);
+        r = oldRGBA.r;
+        g = oldRGBA.g;
+        b = oldRGBA.b;
+        if (chkProgMode.checked && oldRGBA.a < 1) {
+            // add 0.1 to current alpha
+            a = oldRGBA.a + 0.1;
+        } else {
+            a = 1;
+        }
+    }
+    element.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
 }
 
+function random(ceiling) {
+    const randomNumber = Math.floor(Math.random() * ceiling);
+    return randomNumber;
+}
+
+function getRgbaCode(string) {
+    // expects "rgba(r,g,b,a)"
+    // returns object {r, g, b, a}
+    const substring = string.slice(
+        string.indexOf("(") + 1,
+        string.indexOf(")")
+    );
+    const parts = substring.split(",");
+    const code = {
+        r: parseInt(parts[0]),
+        g: parseInt(parts[1]),
+        b: parseInt(parts[2]),
+        a: parseFloat(parts[3])
+    }
+    return code;
+}
