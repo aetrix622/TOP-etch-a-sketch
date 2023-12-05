@@ -48,9 +48,10 @@ ul {
 #header-right {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: end;
     gap: 5px;
+    min-width: fit-content;
 }
 
 button {
@@ -84,5 +85,9 @@ button {
 .gridcell {
     border: darkgray solid 1px;
     flex: 1;
+}
+
+.tbGrid {
+    width: 50px;
 }
 

@@ -1,29 +1,34 @@
 const btnNewGrid = document.querySelector("#btnNewGrid");
 const chkColorMode = document.querySelector("#chkColors");
 const chkProgMode = document.querySelector("#chkProgressive");
+const tbGridX = document.querySelector("#tbGridX");
+const tbGridY = document.querySelector("#tbGridY");
 
 window.addEventListener("DOMContentLoaded", (e) => {
-    generateGrid(16,16);
+    generateGrid(100,50);
 });
 
 btnNewGrid.addEventListener("click", (e) => { 
-    let rows = prompt("Generating new grid. Number of rows?", 16);
-    let cols = prompt("Number of columns?", 16);
-    if (parseInt(rows) < 1 
-    || parseInt(cols) < 1 
-    || isNaN(rows)
-    || isNaN(cols)) {
-        alert("Bad input. Please try again.");
+    // verify input. Input type is already number, so 
+    // we just need to check range:
+    let outOfBounds = false
+    for (const field of [tbGridX, tbGridY]) {
+        if (field.value > 100) {
+            outOfBounds = true;
+            field.value = 100;
+        }
+        if (field.value < 0) {
+            outOfBounds = true;
+            field.value = 1;
+        }
+    }
+    if (outOfBounds == true) {
+        alert("Grid dimensions cannot be greater than 100 or less than 0. Please check your input.");
         return;
     }
-    if (rows > 100) {
-        alert("Maximum row limit exceeded. Setting rows to 100.");
-        rows = 100;
-    }
-    if (cols > 100) {
-        alert("Maximum column limit exceeded. Setting columns to 100.");
-        cols = 100;
-    }
+    // bounds ok: generate the grid
+    let rows = tbGridY.value;
+    let cols = tbGridX.value;
     generateGrid(cols, rows);
 });
 
