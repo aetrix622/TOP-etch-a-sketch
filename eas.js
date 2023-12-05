@@ -1,11 +1,11 @@
 const btnNewGrid = document.querySelector("#btnNewGrid");
 const chkColorMode = document.querySelector("#chkColors");
 const chkProgMode = document.querySelector("#chkProgressive");
-const tbGridX = document.querySelector("#tbGridX");
-const tbGridY = document.querySelector("#tbGridY");
+const chkShowGrid = document.querySelector("#chkShowGrid");
+const gridSize = document.querySelector("#gridSize");
 
 window.addEventListener("DOMContentLoaded", (e) => {
-    generateGrid(100,50);
+    generateGrid(50,50);
 });
 
 btnNewGrid.addEventListener("click", (e) => { 
@@ -34,7 +34,7 @@ btnNewGrid.addEventListener("click", (e) => {
 
 // generates a new grid with x cells horizontally and y cells vertically.
 function generateGrid(x, y) {
-    const container = document.querySelector("#grid-container");
+    const container = document.querySelector("#grid");
     container.innerHTML = "";
     for (i = 1; i <= y; i++) {
         const gridRow = document.createElement("div");

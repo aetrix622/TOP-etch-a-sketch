@@ -4,36 +4,49 @@
 <head>
     <title>Project: Etch-a-Sketch</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-    <script src="eas.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./eas.js" defer></script>
 </head>
 
 <body>
     <div id="header">
         <div id="header-left">
             <h1>Project: Etch-a-Sketch</h1>
-            <h4>An Exercise from <a href="https://www.theodinproject.com/">The Odin Project</a></h4>
         </div>
         <div id="header-right">
             <div>
-                <label for="tbGridX">X:</label>
-                <input type="number" class="tbGrid" id="tbGridX" name="tbGridX" value="100">
-                <label for="tbGridY">Y:</label>
-                <input type="number" class="tbGrid" id="tbGridY" name="tbGridY" value="50">
-                <button id="btnNewGrid">New Grid</button>
+
             </div>
             <div>
-                <label for="chkColors">Color Mode</label>
-                <input type="checkbox" id="chkColors" name="chkColors" value="false">
-            </div>
-            <div>
-                <label for="chkProgressive">Progressive Mode</label>
-                <input type="checkbox" id="chkProgressive" name="chkProgressive" value="false">
             </div>
         </div>
     </div>
     <div id="grid-container">
-        There is supposed to be a grid here. Is something broken?
+        <div id="workspace">
+            <div id="toolbar">
+                <div id="tbTop">
+                    <button id="btnNew" title="New">New</button>
+                    <div class="divider"></div>
+                    <button id="btnEraser" title="Eraser">Eraser</button>
+                    <div class="divider"></div>
+                    <button id="btnRainbow" title="Pretty colors!">Rainbow Mode</button>
+                    <button id="btnSketch" title="Like sketching with a pencil">Sketch Mode</button>
+                </div>
+                <div id="tbBottom">
+                    <label for="gridSize">Grid Size:</label>
+                    <input type="range" id="gridSize" name="gridSize" min="2" max="100" value="50">
+                    <div id="txtGridSize">50 x 50</div>
+                    <div>
+                        <label for="chkShowGrid">Show Grid:</label>
+                        <input type="checkbox" id="chkShowGrid" name="chkShowGrid">
+                    </div>
+                </div>
+            </div>
+            <div id="grid">
+                There is supposed to be a grid here. Is something broken?
+            </div>
+
+        </div>
     </div>
     <div id="footer">
         &copy; 2023 Joe Rochinski
