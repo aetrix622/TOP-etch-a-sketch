@@ -140,7 +140,6 @@ button {
 }
 
 .gridcell {
-    border: darkgray solid 1px;
     flex: 1;
 }
 

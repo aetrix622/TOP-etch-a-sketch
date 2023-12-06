@@ -1,36 +1,37 @@
-const btnNewGrid = document.querySelector("#btnNewGrid");
 const chkColorMode = document.querySelector("#chkColors");
 const chkProgMode = document.querySelector("#chkProgressive");
 const chkShowGrid = document.querySelector("#chkShowGrid");
 const gridSize = document.querySelector("#gridSize");
+const txtGridSize = document.querySelector("#txtGridSize");
 
 window.addEventListener("DOMContentLoaded", (e) => {
     generateGrid(50,50);
 });
 
-btnNewGrid.addEventListener("click", (e) => { 
-    // verify input. Input type is already number, so 
-    // we just need to check range:
-    let outOfBounds = false
-    for (const field of [tbGridX, tbGridY]) {
-        if (field.value > 100) {
-            outOfBounds = true;
-            field.value = 100;
-        }
-        if (field.value < 0) {
-            outOfBounds = true;
-            field.value = 1;
-        }
-    }
-    if (outOfBounds == true) {
-        alert("Grid dimensions cannot be greater than 100 or less than 0. Please check your input.");
-        return;
-    }
-    // bounds ok: generate the grid
-    let rows = tbGridY.value;
-    let cols = tbGridX.value;
-    generateGrid(cols, rows);
+gridSize.addEventListener("change", (e) => {
+    // fires only on release. use this to generate the grid
+    generateGrid(gridSize.value, gridSize.value);
+    showGrid();
 });
+
+gridSize.addEventListener("input", (e) => {
+    // fires repeatedly while dragging control. Use this to continously
+    // update the grid size display text
+    txtGridSize.textContent = `${gridSize.value} X ${gridSize.value}`;
+});
+
+chkShowGrid.addEventListener("change", showGrid);
+
+function showGrid() {
+    const gridCells = Array.from(document.querySelectorAll(".gridcell"));
+    for (const gridCell of gridCells) {
+        if (chkShowGrid.checked) {
+            gridCell.style.border = "1px solid darkgray";
+        } else {
+            gridCell.style.border = "0px solid darkgray";
+        }
+    }
+}
 
 // generates a new grid with x cells horizontally and y cells vertically.
 function generateGrid(x, y) {
