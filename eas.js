@@ -1,3 +1,7 @@
+const btnClear = document.querySelector("#btnClear");
+const btnEraser = document.querySelector("#btnEraser");
+const btnRainbow = document.querySelector("#btnRainbow");
+const btnSketch = document.querySelector("#btnSketch");
 const chkColorMode = document.querySelector("#chkColors");
 const chkProgMode = document.querySelector("#chkProgressive");
 const chkShowGrid = document.querySelector("#chkShowGrid");
@@ -6,6 +10,11 @@ const txtGridSize = document.querySelector("#txtGridSize");
 
 window.addEventListener("DOMContentLoaded", (e) => {
     generateGrid(50,50);
+});
+
+btnClear.addEventListener("click", (e) => { 
+    generateGrid(gridSize.value, gridSize.value);
+    showGrid();
 });
 
 gridSize.addEventListener("change", (e) => {
