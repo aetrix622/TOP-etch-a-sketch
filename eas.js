@@ -7,6 +7,28 @@ const chkProgMode = document.querySelector("#chkProgressive");
 const chkShowGrid = document.querySelector("#chkShowGrid");
 const gridSize = document.querySelector("#gridSize");
 const txtGridSize = document.querySelector("#txtGridSize");
+let rainbowMode = false;
+let sketchMode = false;
+
+btnRainbow.addEventListener("click", (e) => {
+    if (rainbowMode === false) {
+        rainbowMode = true;
+        btnRainbow.classList.add("enabled");
+    } else {
+        rainbowMode = false;
+        btnRainbow.classList.remove("enabled");
+    }
+});
+
+btnSketch.addEventListener("click", (e) => {
+    if (sketchMode === false) {
+        sketchMode = true;
+        btnSketch.classList.add("enabled");
+    } else {
+        sketchMode = false;
+        btnSketch.classList.remove("enabled");
+    }
+});
 
 window.addEventListener("DOMContentLoaded", (e) => {
     generateGrid(50,50);
@@ -53,7 +75,19 @@ function generateGrid(x, y) {
         for (j = 1; j <= x; j++) {
             const gridCell = document.createElement("div");
             gridCell.classList.add("gridcell", "row-"+i, "col-"+j);
-            gridCell.addEventListener("mouseenter", (e) => { colorCell(gridCell)});
+
+            // color cell when primary-clicked or when click+dragged into
+            gridCell.addEventListener("mousedown", (e) => { 
+                if (e.button === 0) {
+                    colorCell(gridCell);
+                }
+            });
+            gridCell.addEventListener("mouseenter", (e) => { 
+                if (e.buttons === 1) {
+                    colorCell(gridCell);
+                }
+            });
+
             gridRow.appendChild(gridCell);
         }
     }
@@ -64,7 +98,7 @@ function colorCell(element) {
     let r, g, b, a;
     if (initialStyle == "") {
         // no style is set. choose a color.
-        if (chkColorMode.checked) {
+        if (rainbowMode) {
             r = random(255);
             g = random(255);
             b = random(255);
@@ -74,7 +108,7 @@ function colorCell(element) {
             b = 0;
         }
         // Progressive alpha starts at a=0.1 if set. Otherwise a=1.
-        if (chkProgMode.checked) {
+        if (sketchMode) {
             a = 0.1;
         } else a = 1;
     } else {
@@ -84,7 +118,7 @@ function colorCell(element) {
         r = oldRGBA.r;
         g = oldRGBA.g;
         b = oldRGBA.b;
-        if (chkProgMode.checked && oldRGBA.a < 1) {
+        if (sketchMode && oldRGBA.a < 1) {
             // add 0.1 to current alpha
             a = oldRGBA.a + 0.1;
         } else {

@@ -64,6 +64,11 @@ button {
     height: 50px;
 }
 
+.enabled {
+    background-color: lightgreen;
+    font-weight: bold;
+}
+
 #footer {
     background-color: darkgray;
     flex: 0;
