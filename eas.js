@@ -2,13 +2,22 @@ const btnClear = document.querySelector("#btnClear");
 const btnEraser = document.querySelector("#btnEraser");
 const btnRainbow = document.querySelector("#btnRainbow");
 const btnSketch = document.querySelector("#btnSketch");
-const chkColorMode = document.querySelector("#chkColors");
-const chkProgMode = document.querySelector("#chkProgressive");
 const chkShowGrid = document.querySelector("#chkShowGrid");
 const gridSize = document.querySelector("#gridSize");
 const txtGridSize = document.querySelector("#txtGridSize");
 let rainbowMode = false;
 let sketchMode = false;
+let eraseMode = false;
+
+btnEraser.addEventListener("click", (e) => {
+    if (eraseMode === false) {
+        eraseMode = true;
+        btnEraser.classList.add("enabled");
+    } else {
+        eraseMode = false;
+        btnEraser.classList.remove("enabled");
+    }
+});
 
 btnRainbow.addEventListener("click", (e) => {
     if (rainbowMode === false) {
@@ -94,6 +103,10 @@ function generateGrid(x, y) {
 }
 
 function colorCell(element) {
+    if (eraseMode === true) {
+        element.style.backgroundColor = "";
+        return;
+    }
     const initialStyle = element.style.getPropertyValue("background-color");
     let r, g, b, a;
     if (initialStyle == "") {
